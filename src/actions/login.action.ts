@@ -19,7 +19,8 @@ async function loginAction({ request }: ActionFunctionArgs) {
         await login(creds)
         return redirect(pathname)
       } catch (error) {
-        return { ok: false, error: error.message || "Login failed. Please try again." }
+        const message = error instanceof Error ? error.message : "Login failed. Please try again."
+        return { ok: false, error: message }
       }
     },
   };
